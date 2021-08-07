@@ -1,0 +1,56 @@
+https://www.tutorialexample.com/python-convert-image-background-to-transparent-a-step-guide-python-pillow-tutorial/
+
+Sometimes, we need make the backgroud of an image transparent, how to implement it in python? In this tutorial, we will implement this function using python pillow library.
+
+This tutorial refers:
+
+Python Pillow Change a Specific Color of an Image: A Step Guide
+Load an image using python pillow
+
+We can open an image to process first.
+
+
+<Code>
+    from PIL import Image
+    im = Image.open("file.png")
+</Code>
+
+
+about file.png:
+
+The image mode is RGB.
+
+In order to know how to get the mode of an image, you can check this tutorial.
+
+Python Pillow Get and Convert Image Mode: A Beginner Guide (https://www.tutorialexample.com/python-pillow-get-and-convert-image-mode-a-beginner-guide-python-pillow-tutorial/)
+
+Convert image mode to RGBA
+
+In order to make the backgroud of an image transparent, we must make its image mode be RGBA, which contains an alpha channel.
+
+
+<Code>
+    img = im.convert("RGBA")
+</Code>
+
+
+Then we can process this image pixel by pixel.
+Convert the backgroud of an image transparent
+
+The backgroud color of file.png is white(255, 255, 255). We should make all pixels with white color transparent.
+
+
+<Code>
+    width = img.size[0] 
+    height = img.size[1] 
+    for x in range(0,width):# process all pixels
+        for y in range(0,height):
+            data = img.getpixel((x, y))
+            if (data[0] == 255 and data[1] == 255 and data[2] == 255 ):
+                img.putpixel((x, y), (255, 255, 255, 0))
+</Code>
+
+
+img.putpixel((x, y), (255, 255, 255, 0)) can make a pixel transparent.
+
+Then we can display the processed image.
